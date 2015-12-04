@@ -33,3 +33,6 @@ Copy IrregularGridLayoutManager.java to you project(keep package).
 
 ```
 
+#License
+
+This project is licensed under the MIT License.Please refer the License.txt file. Just use it. LOL.
