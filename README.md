@@ -12,4 +12,21 @@ Reference(参考):
 
 [Building a RecyclerView LayoutManager](http://wiresareobsolete.com/2014/09/building-a-recyclerview-layoutmanager-part-1/)
 
+#Useage
+
+What you should do is add **`layoutManager.setSpanDividers(0, 50, 0);`** in you java file.
+
+###Step1.
+
+Copy IrregularGridLayoutManager.java to you project(keep package).
+
+###Step2.
+
+```java
+
+    IrregularGridLayoutManager layoutManager = new IrregularGridLayoutManager(this, 4);
+    layoutManager.setSpanDividers(0, 50, 0); //set you custom dividers.
+    mRecyclerView.setLayoutManager(layoutManager);
+
+```
 
