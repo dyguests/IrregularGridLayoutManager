@@ -711,15 +711,7 @@ public class IrregularGridLayoutManager extends LinearLayoutManager {
      * @param spanDividers type is pixel
      */
     public void setSpanDividers(int... spanDividers) {
-        if (spanDividers == mSpanDividers) {
-            return;
-        }
-
-        if (spanDividers != null && mSpanDividers != null
-                && spanDividers.length == mSpanDividers.length/* && issame*/) {// FIXME: 15/12/4 等会弄
-            return;
-        }
-
+        //I'm not sure if I should add some validate() or invalidateXXX()
         this.mSpanDividers = spanDividers;
     }
 
