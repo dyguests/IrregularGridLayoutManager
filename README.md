@@ -21,7 +21,7 @@ What you should do is add **`layoutManager.setSpanDividers(0, 50, 0);`** in you 
 
 ###Step1.
 
-Copy IrregularGridLayoutManager.java to you project(keep package).
+Copy `IrregularGridLayoutManager.java` to you project(keep package).
 
 ###Step2.
 
