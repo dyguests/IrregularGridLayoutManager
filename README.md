@@ -5,6 +5,7 @@ A Irregular GridLayoutManager.You can custom divider for each span.
 这是一个不规则的GridLayoutManager,你可以自定义每个跨度(span)的间距(divider).
 
 <img src="./graphics/device-2015-12-04-163517.png" width="40%"/>
+<img src="./graphics/device-2015-12-04-164636.png" width="40%"/>
 
 Reference(参考): 
 

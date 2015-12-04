@@ -11,7 +11,7 @@ public class MainActivity extends AbsActivity {
         super.assignViews();
 
         IrregularGridLayoutManager layoutManager = new IrregularGridLayoutManager(this, 4);
-        layoutManager.setSpanDividers(0, 50, 0);
+        layoutManager.setSpanDividers(25, 0, 50);
         mRecyclerView.setLayoutManager(layoutManager);
     }
 }
