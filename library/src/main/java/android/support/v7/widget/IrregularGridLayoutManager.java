@@ -709,10 +709,16 @@ public class IrregularGridLayoutManager extends LinearLayoutManager {
         mSpanSizeLookup.invalidateSpanIndexCache();
     }
 
+    /**
+     * @return type is pixel
+     */
     public int[] getSpanDividers() {
         return mSpanDividers;
     }
 
+    /**
+     * @param spanDividers type is pixel
+     */
     public void setSpanDividers(int... spanDividers) {
         if (spanDividers == mSpanDividers) {
             return;
