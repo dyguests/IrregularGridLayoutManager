@@ -9,8 +9,7 @@ public class MainActivity extends AbsActivity {
     @Override
     protected void assignViews() {
         super.assignViews();
-
-        IrregularGridLayoutManager layoutManager = new IrregularGridLayoutManager(this, 4);
+        layoutManager = new IrregularGridLayoutManager(this, 4);
         layoutManager.setSpanDividers(25, 0, 50);
         mRecyclerView.setLayoutManager(layoutManager);
     }

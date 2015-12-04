@@ -3,10 +3,10 @@ package com.fanhl.irregulargridlayoutmanagersample.ui.common;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.IrregularGridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -33,9 +33,9 @@ public abstract class AbsActivity extends AppCompatActivity {
     @Bind(R.id.swipe_refresh_layout)
     SwipeRefreshLayout   mSwipeRefreshLayout;
     @Bind(R.id.recycler_view)
-    protected
-    RecyclerView         mRecyclerView;
-    private BookAdapter mAdapter;
+    protected RecyclerView               mRecyclerView;
+    protected IrregularGridLayoutManager layoutManager;
+    private   BookAdapter                mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +44,13 @@ public abstract class AbsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        fab.setOnClickListener(view -> {
+            if (layoutManager.getOrientation() == LinearLayoutManager.VERTICAL) {
+                layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            } else {
+                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            }
+        });
 
         assignViews();
         refreshData();

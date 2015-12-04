@@ -1,11 +1,13 @@
 #IrregularGridLayoutManager
 
-A Irregular GridLayoutManager.You can custom divider for each span. 
+A Irregular GridLayoutManager.You can custom divider for each span.It can work on vertical or horizontal.
 
-这是一个不规则的GridLayoutManager,你可以自定义每个跨度(span)的间距(divider).
+这是一个不规则的GridLayoutManager,你可以自定义每个跨度(span)的间距(divider).它可能适用于水平方向和垂直方向上.
 
 <img src="./graphics/device-2015-12-04-163517.png" width="40%"/>
 <img src="./graphics/device-2015-12-04-164636.png" width="40%"/>
+
+<img src="./graphics/device-2015-12-04-165911.png" width="40%"/>
 
 Reference(参考): 
 
