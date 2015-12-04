@@ -280,8 +280,7 @@ public class IrregularGridLayoutManager extends LinearLayoutManager {
                 additionalSize -= mSpanCount;
             }
 
-            /**
-             *
+            /*
              * add spanDivider width for range[1,mSpanCount).
              */
             if (i < mSpanCount) {
@@ -300,7 +299,7 @@ public class IrregularGridLayoutManager extends LinearLayoutManager {
      * @return sum of span dividers's width.
      */
     private int getSpanDividerWidth(int index) {
-        if (mSpanDividers == null || index >= mSpanDividers.length) {
+        if (mSpanDividers == null || index < 0 || index >= mSpanDividers.length) {
             return 0;
         }
 
@@ -521,8 +520,9 @@ public class IrregularGridLayoutManager extends LinearLayoutManager {
             final LayoutParams lp = (LayoutParams) view.getLayoutParams();
             final int spec = View.MeasureSpec.makeMeasureSpec(
                     mCachedBorders[lp.mSpanIndex + lp.mSpanSize] -
-                            mCachedBorders[lp.mSpanIndex],
+                            mCachedBorders[lp.mSpanIndex] - getSpanDividerWidth(lp.mSpanIndex + lp.mSpanSize - 1)/*minus span divider*/,
                     View.MeasureSpec.EXACTLY);
+            // FIXME: 15/12/4 在这里根据spanDivider来处理跨度
             if (mOrientation == VERTICAL) {
                 measureChildWithDecorationsAndMargin(view, spec, getMainDirSpec(lp.height), false);
             } else {
@@ -537,12 +537,15 @@ public class IrregularGridLayoutManager extends LinearLayoutManager {
         // views that did not measure the maxSize has to be re-measured
         final int maxMeasureSpec = getMainDirSpec(maxSize);
         for (int i = 0; i < count; i++) {
+            // FIXME: 15/12/4 在这里根据spanDivider来处理跨度
+            int sapnIndex = i / mSpanCount;
+
             final View view = mSet[i];
             if (mOrientationHelper.getDecoratedMeasurement(view) != maxSize) {
                 final LayoutParams lp = (LayoutParams) view.getLayoutParams();
                 final int spec = View.MeasureSpec.makeMeasureSpec(
                         mCachedBorders[lp.mSpanIndex + lp.mSpanSize] -
-                                mCachedBorders[lp.mSpanIndex],
+                                mCachedBorders[lp.mSpanIndex] - getSpanDividerWidth(lp.mSpanIndex + lp.mSpanSize - 1)/*minus span divider*/,
                         View.MeasureSpec.EXACTLY);
                 if (mOrientation == VERTICAL) {
                     measureChildWithDecorationsAndMargin(view, spec, maxMeasureSpec, true);
@@ -573,6 +576,11 @@ public class IrregularGridLayoutManager extends LinearLayoutManager {
             }
         }
         for (int i = 0; i < count; i++) {
+            /*
+             * spanIndex
+             */
+            int spanIndex = i / mSpanCount;// FIXME: 15/12/4 这种办法不太好 想办法改用 mOrientationHelper.getDecoratedMeasurementInOther(view);
+
             View         view   = mSet[i];
             LayoutParams params = (LayoutParams) view.getLayoutParams();
             if (mOrientation == VERTICAL) {
