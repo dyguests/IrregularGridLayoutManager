@@ -47,7 +47,10 @@ public class IrregularGridLayoutManager extends LinearLayoutManager {
     // re-used variable to acquire decor insets from RecyclerView
     final Rect mDecorInsets = new Rect();
 
-//    int[]
+    /**
+     * 用于存放不同跨度(不包含边界)间的间隔
+     */
+    int[] mSpanDividers;
 
     /**
      * Constructor used when layout manager is set in XML by RecyclerView attribute
@@ -263,9 +266,10 @@ public class IrregularGridLayoutManager extends LinearLayoutManager {
                 || mCachedBorders[mCachedBorders.length - 1] != totalSpace) {
             mCachedBorders = new int[mSpanCount + 1];
         }
+
         mCachedBorders[0] = 0;
-        int sizePerSpan          = totalSpace / mSpanCount;
-        int sizePerSpanRemainder = totalSpace % mSpanCount;
+        int sizePerSpan          = (totalSpace - getSpanDividersWidth()) / mSpanCount;
+        int sizePerSpanRemainder = (totalSpace - getSpanDividersWidth()) % mSpanCount;
         int consumedPixels       = 0;
         int additionalSize       = 0;
         for (int i = 1; i <= mSpanCount; i++) {
@@ -275,9 +279,49 @@ public class IrregularGridLayoutManager extends LinearLayoutManager {
                 itemSize += 1;
                 additionalSize -= mSpanCount;
             }
+
+            /**
+             *
+             * add spanDivider width for range[1,mSpanCount).
+             */
+            if (i < mSpanCount) {
+                itemSize += getSpanDividerWidth(i - 1);
+            }
+
             consumedPixels += itemSize;
             mCachedBorders[i] = consumedPixels;
         }
+    }
+
+    /**
+     * Return sum of span dividers's width.
+     *
+     * @param index the index of spanCount.
+     * @return sum of span dividers's width.
+     */
+    private int getSpanDividerWidth(int index) {
+        if (mSpanDividers == null || index >= mSpanDividers.length) {
+            return 0;
+        }
+
+        return mSpanDividers[index];
+    }
+
+    /**
+     * Return sum of span dividers's width.
+     *
+     * @return sum of span dividers's width.
+     */
+    private int getSpanDividersWidth() {
+        if (mSpanDividers == null) {
+            return 0;
+        }
+
+        int width = 0;
+        for (int mSpanDivider : mSpanDividers) {
+            width += mSpanDivider;
+        }
+        return width;
     }
 
     @Override
@@ -655,6 +699,23 @@ public class IrregularGridLayoutManager extends LinearLayoutManager {
         }
         mSpanCount = spanCount;
         mSpanSizeLookup.invalidateSpanIndexCache();
+    }
+
+    public int[] getSpanDividers() {
+        return mSpanDividers;
+    }
+
+    public void setSpanDividers(int... spanDividers) {
+        if (spanDividers == mSpanDividers) {
+            return;
+        }
+
+        if (spanDividers != null && mSpanDividers != null
+                && spanDividers.length == mSpanDividers.length/* && issame*/) {// FIXME: 15/12/4 等会弄
+            return;
+        }
+
+        this.mSpanDividers = spanDividers;
     }
 
     /**

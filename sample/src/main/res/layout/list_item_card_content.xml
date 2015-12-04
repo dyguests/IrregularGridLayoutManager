@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:maxHeight="120dp"
-        android:minHeight="80dp"
+        android:minHeight="40dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher"
         tools:ignore="ContentDescription"/>
